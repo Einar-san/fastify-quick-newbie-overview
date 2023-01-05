@@ -4,6 +4,7 @@ import {decodeToken, generateToken} from "../../utils/tokenHandler.js";
 import { mailVerifyHandle } from "../../utils/mailHandler.js";
 import {refreshVerificationError} from "../../errors/refreshVerificationError.js";
 import {retryError} from "../../errors/retryError.js";
+import {userExist} from "../../errors/userExist.js";
 
 
 
@@ -15,18 +16,23 @@ export const newAccount = async (req, reply) => {
         }
         else if (req.method === "POST") {
             const user = req.body
-            randomDatabase.prepare('INSERT INTO users (email, password, first_name, last_name) VALUES (?, ?, ?, ?)')
-                .run(
-                    user.email,
-                    await hash(user.password),
-                    user.first_name,
-                    user.last_name
-                )
-            const storedUser = randomDatabase.prepare('SELECT * FROM users WHERE email = ?').get(user.email)
-            const token =  await generateToken(storedUser,'verify', reply)
-            await mailVerifyHandle(storedUser, token)
+            const ifexist = randomDatabase.prepare('SELECT email FROM users WHERE email = ?').get(user.email)
+            if(ifexist !== undefined) {
+                throw new userExist('You already have an account.')
+            } else {
+                randomDatabase.prepare('INSERT INTO users (email, password, first_name, last_name) VALUES (?, ?, ?, ?)')
+                    .run(
+                        user.email,
+                        await hash(user.password),
+                        user.first_name,
+                        user.last_name
+                    )
+                const storedUser = randomDatabase.prepare('SELECT * FROM users WHERE email = ?').get(user.email)
+                const token =  await generateToken(storedUser,'verify', reply)
+                await mailVerifyHandle(storedUser, token)
 
-            return reply.redirect('/log_in/200')
+                return reply.redirect('/log_in/200')
+            }
         }
         else {
             throw new retryError ('Some kind of dark magic interfere with the process !')
