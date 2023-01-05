@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en, fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="http://localhost:3000/bulma.min.css" rel="stylesheet">
+    <script src="http://localhost:3000/fontawesome.js"></script>
+
+</head>
+
+<body class="text-center">
+<header>
+    <section class='section m-0 p-0'>
+        <div class='container'>
+            <div class='columns'>
+                <div class='column is-12 p-5'>
+                    <nav aria-label='main navigation' class='navbar mt-5 mb-5' role='navigation'>
+                        <div class='navbar-brand'>
+                            <a class="navbar-item has-text-weight-bold" href="/">Random website
+                            </a><a aria-label='menu' class='navbar-burger' data-target='navbar' role='button'>
+                                <span aria-hidden></span>
+                                <span aria-hidden></span>
+                                <span aria-hidden></span>
+                            </a>
+                        </div>
+                        <div class='navbar-menu' id='navbar'>
+                            <div class='navbar-end'>
+                                <div class='navbar-item'>
+                                    <div class='buttons'>
+                                        <% if (locals.user === undefined) {%>
+                                        <a class="button is-success has-text-weight-bold" href="/sign_up">Sign up</a>
+                                        <a class="button is-warning has-text-weight-bold" href="/log_in/2">Log in</a>
+                                        <%} else {%>
+                                            <div class="navbar-item has-dropdown is-hoverable">
+                                                <a class="navbar-link">
+                                                    <h2>oO <%= user.name%> Oo</h2>
+                                                </a>
+                                                <div class="navbar-dropdown">
+                                                    <a class="navbar-item">
+                                                        Profile
+                                                    </a>
+                                                    <a class="navbar-item" href="/newPost">
+                                                        Make new post
+                                                    </a>
+                                                    <hr class="navbar-divider">
+
+                                                    <a class="navbar-item has-background-danger has-text-weight-bold has-text-white" href="/log_out">Log out</a>
+
+                                                </div>
+                                            </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+</header>

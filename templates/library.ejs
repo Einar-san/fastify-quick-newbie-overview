@@ -1,0 +1,49 @@
+<%- include ('./shared/header.ejs')%>
+
+<section class='main-content section m-0 p-0 '>
+        <div class="container">
+        <div class='columns is-multiline posts'>
+                    <% if(locals.posts) {
+                        for(post of posts) {%>
+                            <div class="column cardPost is- is-3-fullhd is-4-desktop is-5-tablet is-11-mobile">
+                                <div class="card">
+                                    <div class="card-image">
+                                        <figure class="image">
+                                            <img src="http://localhost:3000/arts/<%=post.file_name%>" alt="Placeholder image">
+                                        </figure>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="media ">
+                                            <div class="media-content">
+                                                <p class="title is-4"><%= post.user_name%></p>
+                                            </div>
+                                        </div>
+                                        <div class="content">
+                                            <p><%=post.content%></p>
+
+                                            <time datetime="2016-1-1"><%=post.creatde_at%></time>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <%}
+                    }%>
+
+        </div>
+</section>
+
+<style>
+    @media screen and (max-width: 1023px){
+        .posts {
+            margin-left: 100px;
+        }
+    }
+    @media screen and (max-width: 769px){
+        .posts {
+            margin-left: 20px;
+        }
+    }
+
+</style>
+
+<%- include ('./shared/footer.ejs')%>

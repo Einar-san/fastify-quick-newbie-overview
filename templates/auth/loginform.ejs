@@ -1,0 +1,52 @@
+<%- include('../shared/logheader.ejs')%>
+    <section class="container">
+        <div class="columns is-multiline">
+            <div class="column is-10 is-offset-1 register">
+                <div class="columns">
+                    <div class="column left">
+                        <h1 class="title is-1">Random website</h1>
+                        <h2 class="subtitle is-4">Log in page</h2>
+                        <p>You can't do more simple as a login page. click <a href="/">here</a> to return home page.</p>
+                        <% if(locals.note) {%>
+                        <article class="message <%= locals.status%>">
+                            <div class="message-header">
+                                <p>oO:Oo</p>
+                            </div>
+                            <div class="message-body">
+                                <%= locals.note%>
+                            </div>
+                        </article>
+                        <%} else {}%>
+                    </div>
+                    <div class="column right has-text-centered">
+                        <h1 class="title is-4">oO:)Oo</h1>
+                        <form action="/log_in" method="post" class="has-text-left">
+                            <div class="field">
+                                <div class="control">
+                                    <label class="label" for="email">Email:</label>
+                                    <input class="input is-medium" type="email" placeholder="JohnDoe555@example.cow" name="email" id="email">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <label class="label" for="password">Password:</label>
+                                    <input class="input is-medium" type="password" placeholder="password" name="password" id="password">
+                                </div>
+                            </div>
+                            <button type="submit" class="button is-block is-warning is-fullwidth is-medium">Log in</button>
+                            <br />
+                            <div class="has-text-centered">
+                            <small><em> You are fully responsible for the information entered in the template</em></small>
+                            </div>
+                            <div>
+                                <small><em> <a href="/forgotpassword">Forgot password</a></em></small>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+<%- include('../shared/logfooter.ejs')%>
