@@ -5,6 +5,7 @@ import {retryError} from "../errors/retryError.js";
 import {unknownUser} from "../errors/unknownUser.js";
 import {notLogged} from "../errors/notLogged.js";
 import {fileTypeError} from "../errors/fileTypeError.js";
+import {userExist} from "../errors/userExist.js";
 
 
 export default fp(async function errorHandler(app, options) {
@@ -25,6 +26,9 @@ export default fp(async function errorHandler(app, options) {
             return reply.redirect(`/error/${error.message}`)
         }
         else if (error instanceof fileTypeError) {
+            return reply.redirect(`/error/${error.message}`)
+        }
+        else if (error instanceof userExist) {
             return reply.redirect(`/error/${error.message}`)
         }
         else {
